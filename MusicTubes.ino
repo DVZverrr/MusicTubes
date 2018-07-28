@@ -83,7 +83,10 @@ void PlayerStateManager::ProcessState()
     i++;
   }
   if(pushedButtonNumber)
+  {
     _player->play(pushedButtonNumber);
+    _player->enableLoop();
+  }
   else
     _player->stop();  
   
