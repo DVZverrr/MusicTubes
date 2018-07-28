@@ -61,10 +61,10 @@ void PlayerStateManager::ReadState()
 {
   int buttonState;
   _currentState = 0;
-  for(byte button = FIRST_BUTTON_PIN; button < FIRST_BUTTON_PIN + BUTTON_COUNT; button++)
+  for(byte button = 0; button < BUTTON_COUNT; button++)
   {
-    buttonState = digitalRead(button);
-    byte bitNumber = button - FIRST_BUTTON_PIN;
+    buttonState = digitalRead(button + FIRST_BUTTON_PIN);
+    byte bitNumber = button;
     byte mask = buttonState << bitNumber;
     _currentState|=mask;  
   }
@@ -76,7 +76,7 @@ void PlayerStateManager::ProcessState()
     return;  
   int pushedButtonNumber = 0;  
   int i = 0;
-  while(i <= BUTTON_COUNT)
+  while(i < BUTTON_COUNT)
   {
     if(_currentState&(1 << i))
       pushedButtonNumber = i;
